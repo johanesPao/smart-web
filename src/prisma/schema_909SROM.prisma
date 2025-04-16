@@ -1,0 +1,567 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client_909SROM"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DB_909SROM")
+}
+
+model daily_target {
+  tgl           DateTime @db.Date
+  brand         String   @db.VarChar(100)
+  cost          Decimal? @db.Decimal(38, 0)
+  retail_tag    Decimal? @db.Decimal(38, 0)
+  customer_paid Decimal? @db.Decimal(38, 0)
+  channel       String   @db.VarChar(100)
+
+  @@id([tgl, brand, channel])
+}
+
+model MS_COGS {
+  ID              BigInt
+  ID_KDBRG        BigInt?
+  BARCODE         String?  @db.VarChar(30)
+  COGS_AWAL       Decimal? @db.Decimal(23, 2)
+  COGS_AKHIR      Decimal? @db.Decimal(23, 2)
+  FBULAN          String?  @db.VarChar(5)
+  STOCK_AWAL      Int?
+  STOCK_AKHIR     Int?
+  COGS_BELI       Decimal? @db.Decimal(23, 2)
+  QTY_BELI        Int?
+  COGS_AUDIT      Decimal? @db.Decimal(23, 2)
+  TOTAL_COGS_BELI Decimal? @db.Decimal(29, 2)
+
+  @@id([ID])
+}
+
+model MS_CUST_WHOLESALE {
+  ID           BigInt
+  KD_PEMBELI   String    @db.VarChar(20)
+  NM_PEMBELI   String    @db.VarChar(50)
+  CREATED_BY   String    @db.VarChar(100)
+  CREATED_DATE DateTime  @db.DateTime
+  BLOCK        Boolean?
+  UPDATED_BY   String?   @db.VarChar(100)
+  UPDATED_DATE DateTime? @db.DateTime
+
+  @@id([ID])
+}
+
+model MS_KDBRG {
+  ID           BigInt
+  ITEM_CODE    String?   @db.VarChar(25)
+  BARCODE      String?   @db.VarChar(20)
+  FART_DESC    String?   @db.VarChar(130)
+  FCOL_DESC    String?   @db.VarChar(50)
+  FSIZE_DESC   String?   @db.VarChar(12)
+  FPRODUK      String?   @db.VarChar(60)
+  FBRAND       String?   @db.VarChar(30)
+  FGROUP       String?   @db.VarChar(50)
+  FSEASON      String?   @db.VarChar(20)
+  FBS          String?   @db.VarChar(1)
+  TGL_BS       DateTime? @db.Date
+  MILIK        String?   @db.VarChar(2)
+  PRICE        Decimal?  @db.Decimal(18, 0)
+  KLMPK        String?   @db.VarChar(3)
+  GENDER       String?   @db.VarChar(7)
+  COGS         Decimal?  @db.Decimal(18, 0)
+  CREATED_BY   String?   @db.VarChar(20)
+  CREATED_DATE DateTime? @db.DateTime
+  UPDATED_BY   String?   @db.VarChar(20)
+  UPDATED_DATE DateTime? @db.DateTime
+  STATUS_BRG   String?   @db.VarChar(20)
+  KODE_PT      String?   @db.VarChar(5)
+  DATE_START   DateTime? @db.Date
+  FKD_ART      String?   @db.VarChar(20)
+
+  @@id([ID])
+}
+
+model MS_PO {
+  ID            BigInt
+  NO_PO         String?   @db.VarChar(20)
+  PO_REFF       String?   @db.VarChar(30)
+  DATE          DateTime? @db.Date
+  BRAND         String?   @db.VarChar(35)
+  CONTACT       String?   @db.VarChar(70)
+  POSITION      String?   @db.VarChar(50)
+  EMAIL         String?   @db.VarChar(50)
+  ADDRESS       String?   @db.Text
+  PHONE         String?   @db.VarChar(30)
+  KODE_SUPPLIER String?   @db.VarChar(25)
+  SUPPLIER      String?   @db.VarChar(50)
+  QTY           Int?
+  STATUS        String?   @db.VarChar(15)
+  CREATED_BY    String?   @db.VarChar(25)
+  CREATED_DATE  DateTime? @db.DateTime
+  UPDATED_BY    String?   @db.VarChar(25)
+  UPDATED_DATE  DateTime? @db.DateTime
+  STATUS_PO     Boolean?
+
+  @@id([ID])
+}
+
+model MS_PO_DETAIL {
+  ID        BigInt
+  ID_PO     BigInt?
+  ID_KDBRG  BigInt?
+  BARCODE   String?  @db.VarChar(25)
+  ITEM_CODE String?  @db.VarChar(25)
+  COGS      Decimal? @db.Decimal(18, 0)
+  PRICE     Decimal? @db.Decimal(18, 0)
+  QTY       Int?
+  QTY_REAL  Int?
+  STATUS    String?  @db.VarChar(15)
+  STATUS_PO Boolean?
+
+  @@id([ID])
+}
+
+model MS_SHOWROOM {
+  ID              BigInt
+  KODE            String?  @db.VarChar(20)
+  SHOWROOM        String?  @db.VarChar(50)
+  STORE           String?  @db.VarChar(20)
+  BRAND           String?  @db.VarChar(20)
+  ALAMAT          String?  @db.Text
+  PHONE           String?  @db.VarChar(20)
+  STATUS          String?  @db.VarChar(15)
+  STATUS_SHOWROOM String?  @db.VarChar(15)
+  LUAS            Decimal? @db.Decimal(18, 0)
+  JUM_SPG         Int?
+  SEWA            Decimal? @db.Decimal(18, 0)
+  SERVICE         Decimal? @db.Decimal(18, 0)
+  SALARY          Decimal? @db.Decimal(18, 0)
+  INTERNET        Decimal? @db.Decimal(18, 0)
+  LISTRIK         Decimal? @db.Decimal(18, 0)
+  TELEPON         Decimal? @db.Decimal(18, 0)
+  SUSUT           Decimal? @db.Decimal(18, 0)
+  BY_LAIN2        Decimal? @db.Decimal(18, 0)
+  STATUS_AWAL     String?  @db.VarChar(20)
+  KODE_PT         String?  @db.VarChar(5)
+  VENDOR          String?  @db.VarChar(50)
+  BRAND_JUAL      String?  @db.VarChar(100)
+  LOGO_IMG        String?  @db.VarChar(100)
+
+  @@id([ID])
+}
+
+model MS_STOCK {
+  ID           BigInt
+  ITEM_CODE    String?   @db.VarChar(25)
+  BARCODE      String?   @db.VarChar(30)
+  WAREHOUSE    String?   @db.VarChar(50)
+  KODE         String?   @db.VarChar(20)
+  STOCK        Int?
+  RAK          String?   @db.VarChar(25)
+  CREATED_BY   String?   @db.VarChar(25)
+  CREATED_DATE DateTime? @db.DateTime
+  UPDATED_BY   String?   @db.VarChar(25)
+  UPDATED_DATE DateTime? @db.DateTime
+
+  @@id([ID])
+}
+
+model SH_BAYAR {
+  ID             BigInt
+  KODE_CUST      String?   @db.VarChar(50)
+  KODE           String?   @db.VarChar(20)
+  TGL_TRANS      DateTime? @db.Date
+  NO_BON         String?   @db.VarChar(20)
+  DPP            Decimal?  @db.Decimal(18, 0)
+  PPN            Decimal?  @db.Decimal(18, 0)
+  QTY            Int?
+  BRUTTO         Decimal?  @db.Decimal(18, 0)
+  ITDISCRP       Decimal?  @db.Decimal(18, 0)
+  NET_BAYAR      Decimal?  @db.Decimal(18, 0)
+  CARD           String?   @db.VarChar(5)
+  JM_UANG        Decimal?  @db.Decimal(18, 0)
+  KEMBALI        Decimal?  @db.Decimal(18, 0)
+  NET_CASH       Decimal?  @db.Decimal(18, 0)
+  SDH_CTK        Int?
+  JAM            String?   @db.VarChar(5)
+  TGL_EDT        DateTime? @db.DateTime
+  BATAL          String?   @db.VarChar(1)
+  VOUCHER        String?   @db.VarChar(10)
+  EPC            String?   @db.VarChar(15)
+  FVER           String?   @db.VarChar(5)
+  FTGLVER        DateTime? @db.Date
+  DISC_P         Decimal?  @db.Decimal(18, 0)
+  DISC_R         Decimal?  @db.Decimal(18, 0)
+  NO_BONM        String?   @db.VarChar(20)
+  FID            String?   @db.VarChar(2)
+  FIDMESIN       String?   @db.VarChar(50)
+  FREMARK        String?   @db.VarChar(20)
+  CREATED_BY     String?   @db.VarChar(50)
+  STATUS_STORE   String?   @db.VarChar(15)
+  JM_CARD        Decimal?  @db.Decimal(18, 0)
+  JM_VOUCHER     Decimal?  @db.Decimal(18, 0)
+  MEMBER         String?   @db.VarChar(10)
+  CREATED_DATE   DateTime? @db.DateTime
+  STATUS         Boolean?
+  VOID_BY        String?   @db.VarChar(50)
+  VOID_DATE      DateTime? @db.DateTime
+  OTHER          Decimal?  @db.Decimal(18, 0)
+  NO_MEMBER      String?   @db.VarChar(30)
+  ONGKIR         String?   @db.VarChar(5)
+  JM_ONGKIR      Decimal?  @db.Decimal(18, 0)
+  JM_FREE_ONGKIR Decimal?  @db.Decimal(18, 0)
+
+  @@id([ID])
+}
+
+model SH_JUAL {
+  ID           BigInt
+  ID_BAYAR     BigInt?
+  ID_KDBRG     BigInt?
+  KODE_CUST    String?   @db.VarChar(50)
+  KODE         String?   @db.VarChar(20)
+  TGL_TRANS    DateTime? @db.Date
+  NO_BON       String?   @db.VarChar(20)
+  JUAL_RETUR   String?   @db.VarChar(8)
+  ITEM_CODE    String?   @db.VarChar(25)
+  BARCODE      String?   @db.VarChar(20)
+  QTY          Int?
+  TAG_PRICE    Decimal?  @db.Decimal(18, 0)
+  BON_PRICE    Decimal?  @db.Decimal(18, 0)
+  FTRF         Decimal?  @db.Decimal(18, 0)
+  JNS_DISC     String?   @db.VarChar(1)
+  DISC_P       Decimal?  @db.Decimal(18, 0)
+  DISC_R       Decimal?  @db.Decimal(18, 0)
+  GVOUCHER     Decimal?  @db.Decimal(18, 0)
+  DISCPAKH     Decimal?  @db.Decimal(18, 0)
+  NILAI_BYR    Decimal?  @db.Decimal(18, 0)
+  DLM_TRIMA    Decimal?  @db.Decimal(18, 0)
+  DPP          Decimal?  @db.Decimal(18, 0)
+  PPN          Decimal?  @db.Decimal(18, 0)
+  ALASAN       String?   @db.VarChar(30)
+  FSTATUS      String?   @db.VarChar(10)
+  NO_REFF      String?   @db.VarChar(20)
+  FORMULA      String?   @db.VarChar(2)
+  BATAL        String?   @db.VarChar(1)
+  FEDT         Int?
+  FJAM         String?   @db.VarChar(12)
+  FID          String?   @db.VarChar(2)
+  FOP          String?   @db.VarChar(8)
+  DISC_P2      Decimal?  @db.Decimal(18, 0)
+  DISC_R2      Decimal?  @db.Decimal(18, 0)
+  FBS          String?   @db.VarChar(1)
+  FPROMO       String?   @db.VarChar(1)
+  NO_UNIK      String?   @db.VarChar(10)
+  FADD         String?   @db.VarChar(20)
+  FEDT1        String?   @db.VarChar(20)
+  FDEL         String?   @db.VarChar(20)
+  FNOACARA     String?   @db.VarChar(20)
+  FNOUNIK      String?   @db.VarChar(10)
+  NO_BONM      String?   @db.VarChar(20)
+  CREATED_DATE DateTime? @db.DateTime
+  CREATED_BY   String?   @db.VarChar(50)
+  ART_DESC     String?   @db.VarChar(150)
+  CUSTOMER     String?   @db.VarChar(100)
+  PHONE        String?   @db.VarChar(15)
+
+  @@id([ID])
+}
+
+model SH_MEMBER {
+  ID           BigInt
+  ID_BAYAR     BigInt?
+  ID_MEMBER    BigInt?
+  NAMA         String?   @db.VarChar(75)
+  PHONE        String?   @db.VarChar(25)
+  NO_BON       String?   @db.VarChar(25)
+  NET_BAYAR    Decimal?  @db.Decimal(23, 5)
+  DISC_RATE    Decimal?  @db.Decimal(5, 2)
+  DISC_PRICE   Decimal?  @db.Decimal(23, 5)
+  CREATED_BY   String?   @db.VarChar(60)
+  CREATED_DATE DateTime? @db.DateTime
+  STATUS       Boolean?
+
+  @@id([ID])
+}
+
+model SH_PUTUS_DETAIL {
+  ID         BigInt
+  ID_BAYAR   BigInt?
+  ID_KDBRG   BigInt?
+  KODE_CUST  String?   @db.VarChar(35)
+  KODE       String?   @db.VarChar(20)
+  TGL_TRANS  DateTime? @db.DateTime
+  NO_BON     String?   @db.VarChar(20)
+  JUAL_RETUR String?   @db.VarChar(8)
+  ITEM_CODE  String?   @db.VarChar(25)
+  QTY        Int?
+  TAG_PRICE  Decimal?  @db.Decimal(18, 0)
+  BON_PRICE  Decimal?  @db.Decimal(18, 0)
+  FTRF       Decimal?  @db.Decimal(18, 0)
+  JNS_DISC   String?   @db.VarChar(1)
+  DISC_P     Decimal?  @db.Decimal(18, 0)
+  DISC_R     Decimal?  @db.Decimal(18, 0)
+  GVOUCHER   Decimal?  @db.Decimal(18, 0)
+  DISCPAKH   Decimal?  @db.Decimal(18, 0)
+  NILAI_BYR  Decimal?  @db.Decimal(18, 0)
+  DLM_TRIMA  Decimal?  @db.Decimal(18, 0)
+  DPP        Decimal?  @db.Decimal(18, 0)
+  PPN        Decimal?  @db.Decimal(18, 0)
+  ALASAN     String?   @db.VarChar(30)
+  FSTATUS    String?   @db.VarChar(10)
+  NO_REFF    String?   @db.VarChar(20)
+  FORMULA    String?   @db.VarChar(2)
+  BATAL      String?   @db.VarChar(1)
+  FEDT       Int?
+  FJAM       String?   @db.VarChar(12)
+  FID        String?   @db.VarChar(2)
+  FOP        String?   @db.VarChar(8)
+  FBS        String?   @db.VarChar(1)
+  FPROMO     String?   @db.VarChar(1)
+  NO_UNIK    String?   @db.VarChar(10)
+  FADD       String?   @db.VarChar(20)
+  FDEL       String?   @db.VarChar(20)
+  FNOACARA   String?   @db.VarChar(20)
+  FNOUNIK    String?   @db.VarChar(10)
+  MARGIN     Decimal?  @db.Decimal(18, 0)
+  QTY_ACTUAL Int?
+  BARCODE    String?   @db.VarChar(35)
+  FRETUR     String?   @db.VarChar(5)
+
+  @@id([ID])
+}
+
+model SH_PUTUS_HEADER {
+  ID            BigInt
+  KODE_CUST     String?   @db.VarChar(35)
+  KODE          String?   @db.VarChar(20)
+  TGL_TRANS     DateTime? @db.DateTime
+  NO_BON        String?   @db.VarChar(22)
+  DPP           Decimal?  @db.Decimal(18, 0)
+  PPN           Decimal?  @db.Decimal(18, 0)
+  QTY           Int?
+  BRUTTO        Decimal?  @db.Decimal(18, 0)
+  ITDISCRP      Decimal?  @db.Decimal(18, 0)
+  NET_BAYAR     Decimal?  @db.Decimal(18, 0)
+  CARD          String?   @db.VarChar(5)
+  JM_UANG       Decimal?  @db.Decimal(18, 0)
+  KEMBALI       Decimal?  @db.Decimal(18, 0)
+  NET_CASH      Decimal?  @db.Decimal(18, 0)
+  SDH_CTK       Int?
+  JAM           String?   @db.VarChar(5)
+  TGL_EDT       DateTime? @db.DateTime
+  BATAL         String?   @db.VarChar(1)
+  VOUCHER       String?   @db.VarChar(10)
+  NO_EPC        String?   @db.VarChar(15)
+  FVER          String?   @db.VarChar(2)
+  FTGLVER       DateTime? @db.Date
+  DISC_P        Decimal?  @db.Decimal(18, 0)
+  DISC_R        Decimal?  @db.Decimal(18, 0)
+  NO_BONM       String?   @db.VarChar(10)
+  FID           String?   @db.VarChar(2)
+  FIDMESIN      String?   @db.VarChar(50)
+  FREMARK       String?   @db.VarChar(20)
+  CREATED_BY    String?   @db.VarChar(50)
+  CREATED_DATE  DateTime? @db.DateTime
+  STATUS_STORE  String?   @db.VarChar(15)
+  STATUS_HEADER String?   @db.VarChar(20)
+  SEND_DATE     DateTime? @db.Date
+  MARGIN        Decimal?  @db.Decimal(18, 0)
+  FRETUR        String?   @db.VarChar(5)
+  NO_SO         String?   @db.VarChar(25)
+  NO_SCAN       String?   @db.VarChar(5)
+
+  @@id([ID])
+}
+
+model TR_ADJ_GIT {
+  ID           BigInt
+  FTGl         DateTime? @db.Date
+  ID_WAREHOUSE BigInt?
+  KODE         String?   @db.VarChar(20)
+  SHOWROOM     String?   @db.VarChar(50)
+  DARI         String?   @db.VarChar(50)
+  KE           String?   @db.VarChar(50)
+  KODE_DARI    String?   @db.VarChar(20)
+  KODE_KE      String?   @db.VarChar(20)
+  NO_BUKTI     String?   @db.VarChar(17)
+  ID_KDBRG     BigInt?
+  BARCODE      String?   @db.VarChar(20)
+  ITEM_CODE    String?   @db.VarChar(30)
+  BRAND        String?   @db.VarChar(30)
+  ART_DESC     String?   @db.VarChar(130)
+  COLOR        String?   @db.VarChar(50)
+  SIZE         String?   @db.VarChar(12)
+  QTY_KIRIM    Int?
+  QTY_TERIMA   Int?
+  ADJUSTMENT   Int?
+  CREATED_BY   String?   @db.VarChar(35)
+  CREATED_DATE DateTime? @db.DateTime
+  ID_TR_DETAIL BigInt?
+  CLASS        String?   @db.VarChar(20)
+  FBLN         String?   @db.VarChar(4)
+
+  @@id([ID])
+}
+
+model TR_ADJUSTMENT {
+  ID           BigInt
+  ID_KDBRG     BigInt?
+  ID_WAREHOUSE BigInt?
+  KODE         String?   @db.VarChar(20)
+  SHOWROOM     String?   @db.VarChar(50)
+  BARCODE      String?   @db.VarChar(20)
+  ITEM_CODE    String?   @db.VarChar(25)
+  BRAND        String?   @db.VarChar(30)
+  ART_DESC     String?   @db.VarChar(130)
+  COLOR        String?   @db.VarChar(50)
+  SIZE         String?   @db.VarChar(12)
+  STOCK_AWAL   Int?
+  ADJUSTMENT   Int?
+  STOCK_AKHIR  Int?
+  ALASAN       String?   @db.Text
+  CREATED_BY   String?   @db.VarChar(35)
+  CREATED_DATE DateTime? @db.DateTime
+
+  @@id([ID])
+}
+
+model TR_BELI_DETAIL {
+  ID           BigInt
+  ID_HEADER    BigInt?
+  ID_DETAIL_PO BigInt?
+  ID_KDBRG     BigInt?
+  NO_GR        String?   @db.VarChar(20)
+  QTY_TIBA     Int?
+  KODE         String?   @db.VarChar(20)
+  SHOWROOM     String?   @db.VarChar(35)
+  RECEIVED_BY  String?   @db.VarChar(30)
+  RECEIVE_DATE DateTime? @db.DateTime
+  COGS         Decimal?  @db.Decimal(18, 0)
+  PRICE        Decimal?  @db.Decimal(18, 0)
+  STATUS_GR    String?   @db.VarChar(10)
+
+  @@id([ID])
+}
+
+model TR_BELI_HEADER {
+  ID            BigInt
+  ID_PO         BigInt?
+  NO_GR         String?   @db.VarChar(25)
+  KODE_SUPPLIER String?   @db.VarChar(25)
+  SUPPLIER      String?   @db.VarChar(50)
+  TGL_TRANS     DateTime? @db.Date
+  CREATED_BY    String?   @db.VarChar(30)
+  CREATED_DATE  DateTime? @db.DateTime
+  STATUS_GR     String?   @db.VarChar(10)
+
+  @@id([ID])
+}
+
+model TR_MARGIN {
+  ID            BigInt
+  ID_JUAL       BigInt?
+  ID_KDBRG      BigInt?
+  ID_MARGIN     BigInt?
+  ITEM_CODE     String?  @db.VarChar(25)
+  SHOWROOM      String?  @db.VarChar(50)
+  KODE_CUST     String?  @db.VarChar(20)
+  BRAND         String?  @db.VarChar(30)
+  STORE         String?  @db.VarChar(20)
+  BON_PRICE     Decimal? @db.Decimal(18, 0)
+  NILAI_BYR     Decimal? @db.Decimal(18, 0)
+  POTONGAN      Decimal? @db.Decimal(18, 0)
+  STATUS_DISC   String?  @db.VarChar(5)
+  MARGIN        Decimal? @db.Decimal(18, 0)
+  STATUS_MARGIN String?  @db.VarChar(10)
+  UANG_STORE    Decimal? @db.Decimal(18, 0)
+  UANG_TERIMA   Decimal? @db.Decimal(18, 0)
+  DPP_TERIMA    Decimal? @db.Decimal(18, 0)
+  PPN_TERIMA    Decimal? @db.Decimal(18, 0)
+  BATAL         String?  @db.VarChar(5)
+
+  @@id([ID])
+}
+
+model TRF_PINJAM_DETAIL {
+  ID                 BigInt
+  ID_HEADER          BigInt?
+  ID_KDBRG           BigInt?
+  NO_BUKTI           String? @db.VarChar(17)
+  BARCODE            String? @db.VarChar(20)
+  ITEM_CODE          String? @db.VarChar(30)
+  QTY_KIRIM          Int?
+  QTY_TERIMA         Int?
+  STOCK_AKHIR_KIRIM  Int?
+  STOCK_AKHIR_TERIMA Int?
+  USER_KIRIM         String? @db.VarChar(30)
+  USER_TERIMA        String? @db.VarChar(30)
+  ALASAN             String? @db.Text
+  REFF               String? @db.VarChar(20)
+  FLAG               String? @db.VarChar(20)
+
+  @@id([ID])
+}
+
+model TRF_PINJAM_HEADER {
+  ID            BigInt
+  NO_BUKTI      String?   @db.VarChar(17)
+  DARI          String?   @db.VarChar(50)
+  KE            String?   @db.VarChar(50)
+  KODE_DARI     String?   @db.VarChar(20)
+  KODE_KE       String?   @db.VarChar(20)
+  NAMA          String?   @db.VarChar(75)
+  PHONE         String?   @db.VarChar(15)
+  EMAIL         String?   @db.VarChar(50)
+  WAKTU_KIRIM   DateTime? @db.Date
+  WAKTU_KEMBALI DateTime? @db.Date
+  WAKTU_SELESAI DateTime? @db.Date
+  STATUS        String?   @db.VarChar(20)
+  CREATED_BY    String?   @db.VarChar(30)
+  CREATED_DATE  DateTime? @db.DateTime
+  UPDATED_BY    String?   @db.VarChar(30)
+  UPDATED_DATE  DateTime? @db.DateTime
+  STATUS_PINJAM Boolean?
+  TOTAL_KIRIM   Int?
+  TOTAL_KEMBALI Int?
+
+  @@id([ID])
+}
+
+model TRF_STOCK_DETAIL {
+  ID                 BigInt
+  ID_HEADER          BigInt?
+  ID_KDBRG           BigInt?
+  NO_BUKTI           String? @db.VarChar(17)
+  BARCODE            String? @db.VarChar(20)
+  ITEM_CODE          String? @db.VarChar(30)
+  QTY_KIRIM          Int?
+  QTY_TERIMA         Int?
+  STOCK_AKHIR_KIRIM  Int?
+  STOCK_AKHIR_TERIMA Int?
+  USER_KIRIM         String? @db.VarChar(30)
+  USER_TERIMA        String? @db.VarChar(30)
+  ALASAN             String? @db.Text
+  REFF               String? @db.VarChar(70)
+
+  @@id([ID])
+}
+
+model TRF_STOCK_HEADER {
+  ID           BigInt
+  NO_BUKTI     String?   @db.VarChar(17)
+  KODE_MOVE    String?   @db.VarChar(2)
+  DARI         String?   @db.VarChar(50)
+  KE           String?   @db.VarChar(50)
+  KODE_DARI    String?   @db.VarChar(20)
+  KODE_KE      String?   @db.VarChar(20)
+  WAKTU_KIRIM  DateTime? @db.DateTime
+  WAKTU_TERIMA DateTime? @db.DateTime
+  DONE_TIME    DateTime? @db.DateTime
+  STATUS       String?   @db.VarChar(20)
+  CREATED_BY   String?   @db.VarChar(30)
+  CREATED_DATE DateTime? @db.DateTime
+  UPDATED_BY   String?   @db.VarChar(30)
+  UPDATED_DATE DateTime? @db.DateTime
+  STATUS_TRF   Boolean?
+
+  @@id([ID])
+}
